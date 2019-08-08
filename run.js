@@ -1,12 +1,12 @@
 require('events').EventEmitter.defaultMaxListeners = 100
 const puppeteer = require('puppeteer');
 const fs = require('fs')
-const domain = 'https://www.heritagefund.org.uk';
+const domain = 'https://www.heritagefund.org.uk/';
 const widths = [320, 480, 600, 800, 768, 1024, 1200]
-const paths = ['/', '/funding', '/funding/outcomes']
+const paths = ['', 'funding', 'funding/outcomes']
 for (const path of paths) {
     console.log('path is ' + path)
-    const filePath = path === '/' ? '/homepage' : path
+    const filePath = !path ? 'homepage' : path
     if (!fs.existsSync(__dirname + filePath)) {
         fs.mkdirSync(__dirname + filePath, ({ recursive: true }))
     }
