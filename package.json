@@ -1,9 +1,15 @@
 {
   "name": "site-timeline",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "run.js",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^1.19.0"
+    "aws-sdk": "^2.505.0",
+    "puppeteer": "^1.19.0",
+    "vcap_services": "^0.7.1"
+  },
+  "engines": {
+    "node": "12.1.0",
+    "yarn": "1.15.2"
   }
 }
