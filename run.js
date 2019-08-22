@@ -2,6 +2,8 @@ require('events').EventEmitter.defaultMaxListeners = 100
 const puppeteer = require('puppeteer');
 const fs = require('fs')
 const AWS = require('aws-sdk')
+const throttledQueue = require('throttled-queue')
+const throttle = throttledQueue(1, 2000);
 
 const domain = 'https://www.heritagefund.org.uk/';
 const widths = [320, 480, 600, 800, 768, 1024, 1280]
@@ -52,7 +54,8 @@ const putBodyToS3 = async function (body, key) {
     const params = {
         Bucket: bucketName,
         Key: key,
-        Body: body
+        Body: body,
+        ContentType: 'image/png'
     }
     const putObject = await s3.putObject(params).promise().catch((e) => {
         return (`threw excption ${e} attempting S3 PutObject`)
@@ -74,10 +77,14 @@ async function makeScreenshots() {
 
             (async () => {
                 if (process.env.S3) {
-                    const body = await getScreenshotBody(domain + path, width)
-                    await putBodyToS3(body, `${filePath}/${width}.png`).then(console.log)
+                    throttle(() => {
+                        getScreenshotBody(domain + path, width)
+                        .then(body => putBodyToS3(body, `${filePath}/${width}.png`)
+                        .then(console.log))
+                    })
                 } else {
-                    await writeScreenshotFile(domain + path, width, filePath).then(console.log)
+                    // make a network request.
+                    writeScreenshotFile(domain + path, width, filePath).then(console.log)
                 }
             })().catch((e) => {
                 console.log(`threw exception ${e}`)
