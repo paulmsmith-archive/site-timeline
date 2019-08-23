@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
+const nunjucks = require('nunjucks')
 
 var indexRouter = require('./routes/index');
 
@@ -9,7 +10,11 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+nunjucks.configure(path.join(__dirname, 'views'), {
+  autoescape: true,
+  express: app
+});
+app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
