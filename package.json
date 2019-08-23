@@ -1,11 +1,17 @@
 {
   "name": "site-timeline",
   "version": "1.0.0",
-  "main": "screenshot-maker/run.js",
+  "main": "node ./frontend/bin/www",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.505.0",
+    "debug": "~2.6.9",
+    "express": "^4.17.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
     "node-schedule": "^1.3.2",
+    "nunjucks": "^3.2.0",
     "puppeteer": "^1.19.0",
     "throttled-queue": "^1.0.7"
   },
