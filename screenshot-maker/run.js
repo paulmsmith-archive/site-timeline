@@ -48,6 +48,13 @@ const writeScreenshotFile = async function (url, width, filePath) {
     return (`wrote file ./${filePath}/${width}.png`)
 }
 
+const createLocalFolders = (filePath) => {
+    const absoluteFilePath = `${__dirname}/${filePath}`
+    if (!fs.existsSync(absoluteFilePath)) {
+        fs.mkdirSync(absoluteFilePath, ({ recursive: true }))
+    }
+}
+
 
 
 const putBodyToS3 = async function (body, key) {
@@ -67,11 +74,9 @@ const putBodyToS3 = async function (body, key) {
 
 async function makeScreenshots() {
     for (const path of paths) {
-        console.log('path is ' + path)
         const filePath = buildFilePath(path)
-        const absoluteFilePath = `${__dirname}/${filePath}`
-        if (!fs.existsSync(absoluteFilePath)) {
-            fs.mkdirSync(absoluteFilePath, ({ recursive: true }))
+        if (!process.env.S3) {
+            createLocalFolders(path)
         }
         for (const width of widths) {
             console.log(`width is ${width}`);

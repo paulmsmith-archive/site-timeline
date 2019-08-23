@@ -1,7 +1,7 @@
 ---
 applications:
-- name: nlhf-screenshots
-  command: node run.js
+- name: screenshot-maker
+  command: node screenshot-maker/run.js
   memory: 2G
   disk_quota: 2G
   instances: 1
@@ -13,3 +13,4 @@ applications:
   services:
     - nlhf-screenshots
   health-check-type: process
+  no-route: true
