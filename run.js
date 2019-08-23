@@ -4,6 +4,7 @@ const fs = require('fs')
 const AWS = require('aws-sdk')
 const throttledQueue = require('throttled-queue')
 const throttle = throttledQueue(1, 2000);
+const schedule = require('node-schedule')
 
 const domain = 'https://www.heritagefund.org.uk/';
 const widths = [320, 480, 600, 800, 768, 1024, 1280]
@@ -74,16 +75,14 @@ async function makeScreenshots() {
         }
         for (const width of widths) {
             console.log(`width is ${width}`);
-
             (async () => {
                 if (process.env.S3) {
                     throttle(() => {
                         getScreenshotBody(domain + path, width)
-                        .then(body => putBodyToS3(body, `${filePath}/${width}.png`)
-                        .then(console.log))
+                            .then(body => putBodyToS3(body, `${filePath}/${width}.png`)
+                                .then(console.log))
                     })
                 } else {
-                    // make a network request.
                     writeScreenshotFile(domain + path, width, filePath).then(console.log)
                 }
             })().catch((e) => {
@@ -94,3 +93,9 @@ async function makeScreenshots() {
 };
 
 makeScreenshots();
+
+console.log("starting node schedule")
+schedule.scheduleJob('0 8 * * *', (fireDate) => {
+    console.log(`started scheduled task at ${fireDate.toISOString}`)
+    makeScreenshots()
+})
