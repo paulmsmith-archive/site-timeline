@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 
 /* GET home page. */
-router.get('/:date', function(req, res, next) {
+router.get('^/:date([0-9]{4}-[0-9]{2}-[0-9]{2})', function(req, res, next) {
   res.render('day');
 });
 
