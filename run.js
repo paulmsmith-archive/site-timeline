@@ -24,7 +24,7 @@ if (process.env.S3) {
 
 const buildFilePath = (path) => {
     const isoDate = new Date().toISOString().split('T')[0]
-    return `${isoDate}/${!path ? 'homepage' : path.replace('/', '-slash-')}`
+    return `${isoDate}/${!path ? 'homepage' : path}`
 }
 
 const getScreenshotBody = async function (url, width) {
