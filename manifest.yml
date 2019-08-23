@@ -1,7 +1,7 @@
 ---
 applications:
 - name: screenshot-maker
-  command: node screenshot-maker/run.js
+  command: node run.js
   memory: 2G
   disk_quota: 2G
   instances: 1
@@ -14,3 +14,13 @@ applications:
     - nlhf-screenshots
   health-check-type: process
   no-route: true
+  path: ./screenshot-maker
+- name: nlhf-screenshots
+  command: node bin/www
+  memory: 256M
+  disk_quota: 1G
+  instances: 2
+  buildpacks:
+    - nodejs_buildpack
+  health-check-type: http
+  path: ./frontend
