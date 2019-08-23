@@ -1,7 +1,7 @@
 {
   "name": "site-timeline",
   "version": "1.0.0",
-  "main": "run.js",
+  "main": "screenshot-maker/run.js",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.505.0",
