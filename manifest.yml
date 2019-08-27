@@ -1,4 +1,10 @@
 ---
+defaults: &defaults
+  env: 
+    S3: true
+  services:
+    - nlhf-screenshots
+
 applications:
 - name: screenshot-maker
   command: node run.js
@@ -8,13 +14,10 @@ applications:
   buildpacks: 
     - https://github.com/cloudfoundry/apt-buildpack
     - nodejs_buildpack
-  env: 
-    S3: true
-  services:
-    - nlhf-screenshots
   health-check-type: process
   no-route: true
   path: ./screenshot-maker
+  <<: *defaults
 - name: nlhf-screenshots
   command: node bin/www
   memory: 256M
@@ -24,3 +27,4 @@ applications:
     - nodejs_buildpack
   health-check-type: http
   path: ./frontend
+  <<: *defaults
