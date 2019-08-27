@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('^/:date([0-9]{4}-[0-9]{2}-[0-9]{2})', function(req, res) {
-  res.render('date.html', { widths: config.widths, pages: config.pages, date: req.params.date });
+  res.render('date.html', { widths: config.widths, pages: config.pages, date: req.params.date, host: config.host });
 });
 
 module.exports = router;
