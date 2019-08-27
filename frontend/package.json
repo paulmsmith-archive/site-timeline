@@ -1,7 +1,7 @@
 {
   "name": "site-timeline",
   "version": "1.0.0",
-  "main": "node ./bin/www",
+  "main": "./bin/www",
   "license": "MIT",
   "dependencies": {
     "debug": "~2.6.9",
