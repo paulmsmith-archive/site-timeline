@@ -8,7 +8,6 @@ const getBucketName = () => {
     }
 }
 
-console.log(process.env.bucket_name)
 const config = {
     widths: [320, 480, 600, 800, 768, 1024, 1280],
     pages: ['homepage', 'funding', 'funding/outcomes'],

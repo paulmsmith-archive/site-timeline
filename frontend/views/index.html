@@ -2,5 +2,10 @@
 
 {% block content %}
 
-    <h1>Hello World</h1>
+    <h1>NLHF site timeline</h1>
+    <ul>
+    {% for date in dates %}
+    <li><a href="{{date}}">{{date}}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}

@@ -3,12 +3,12 @@ const puppeteer = require('puppeteer');
 const fs = require('fs')
 const AWS = require('aws-sdk')
 const throttledQueue = require('throttled-queue')
-const throttle = throttledQueue(1, 2000);
+const throttle = throttledQueue(1, 1000);
 const schedule = require('node-schedule')
 
 const domain = 'https://www.heritagefund.org.uk/';
 const widths = [320, 480, 600, 800, 768, 1024, 1280]
-const paths = ['', 'funding', 'funding/outcomes']
+const paths = ['', 'funding', 'funding/outcomes', 'funding/check-what-we-fund', 'funding/national-lottery-grant-heritage/3-10k', 'funding/national-lottery-grant-heritage/10k-100k', 'funding/national-lottery-grant-heritage/100k-250k', 'funding/heritage-horizon-awards', 'funding/run-your-project', 'funding/promote-your-project']
 
 const vcap = process.env.VCAP_SERVICES
 let bucketName
@@ -24,7 +24,7 @@ if (process.env.S3) {
 
 const buildFilePath = (path) => {
     const isoDate = new Date().toISOString().split('T')[0]
-    return `${isoDate}/${!path ? 'homepage' : path}`
+    return `${isoDate}/${!path ? 'homepage' : path.replace('/','-slash-')}`
 }
 
 const getScreenshotBody = async function (url, width) {
