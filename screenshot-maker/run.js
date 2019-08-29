@@ -99,7 +99,7 @@ async function makeScreenshots() {
 makeScreenshots();
 
 console.log("starting node schedule")
-schedule.scheduleJob('0 8 * * *', (fireDate) => {
-    console.log(`started scheduled task at ${fireDate.toISOString}`)
+schedule.scheduleJob('0 7 * * *', (fireDate) => {
+    console.log(`started scheduled task at ${new Date().toISOString()}`)
     makeScreenshots()
 })
