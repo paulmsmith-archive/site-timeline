@@ -48,7 +48,6 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('^/:date([0-9]{4}-[0-9]{2}-[0-9]{2})', async (req, res) => {
-
   try {
     const paths = await getPaths(config.bucketName, req.params.date, config.host)
     res.render('date.html', { widths: config.widths, date: req.params.date, host: config.host, paths: paths });
@@ -56,6 +55,8 @@ router.get('^/:date([0-9]{4}-[0-9]{2}-[0-9]{2})', async (req, res) => {
     next(e)
   }
 });
+
+router.get('/healthcheck', (req, res) => res.send('OK'))
 
 
 module.exports = router;
