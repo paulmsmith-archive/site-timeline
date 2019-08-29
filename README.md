@@ -18,6 +18,7 @@ Takes screenshots using Puppeteer. Runs on a schedule to generate them daily.
 - `yarn install`
 - `node run.js`
 
+
 By default it will write the screenshots locally. However, if you set the environment variable `S3` it will write them to S3 (note this requires [getting AWS credentials](#getting-aws-credentials)).
 
 ### frontend
