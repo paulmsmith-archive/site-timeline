@@ -2,6 +2,7 @@
 defaults: &defaults
   env: 
     S3: true
+    paths: "/,/funding,/funding/outcomes,/funding/check-what-we-fund,/funding/national-lottery-grant-heritage/3-10k,/funding/national-lottery-grant-heritage/10k-100k,/funding/national-lottery-grant-heritage/100k-250k,/funding/heritage-horizon-awards,/funding/run-your-project,/funding/promote-your-project"
   services:
     - nlhf-screenshots
 

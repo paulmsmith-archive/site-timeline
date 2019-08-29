@@ -4,11 +4,11 @@
 
 
 <h1>{{date}}</h1> 
-{% for page in pages %}
-<h2>{{page}}</h2>
+{% for path in paths %}
+<h2><a href="{{path.imagePath}}1280.png">{{path.urlPath}}</a></h2>
 {% set comma = joiner() %}
 {% for width in widths %}{{ comma() }} 
-<a href="{{host}}/{{date}}/{{page}}/{{width}}.png">{{ width }}</a>{% endfor %}
+<a href="{{path.imagePath}}{{width}}.png">{{ width }}</a>{% endfor %}
 {% endfor %}
 
 {% endblock %}

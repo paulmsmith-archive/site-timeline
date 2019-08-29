@@ -11,6 +11,7 @@ const getBucketName = () => {
 const config = {
     widths: [320, 480, 600, 800, 768, 1024, 1280],
     pages: ['homepage', 'funding', 'funding/outcomes'],
+    bucketName: getBucketName(),
     host: `https://${getBucketName()}.s3.amazonaws.com`
 }
 

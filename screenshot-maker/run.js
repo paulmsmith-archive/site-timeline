@@ -6,9 +6,9 @@ const throttledQueue = require('throttled-queue')
 const throttle = throttledQueue(1, 1000);
 const schedule = require('node-schedule')
 
-const domain = 'https://www.heritagefund.org.uk/';
+const domain = 'https://www.heritagefund.org.uk';
 const widths = [320, 480, 600, 800, 768, 1024, 1280]
-const paths = ['', 'funding', 'funding/outcomes', 'funding/check-what-we-fund', 'funding/national-lottery-grant-heritage/3-10k', 'funding/national-lottery-grant-heritage/10k-100k', 'funding/national-lottery-grant-heritage/100k-250k', 'funding/heritage-horizon-awards', 'funding/run-your-project', 'funding/promote-your-project']
+const paths = process.env.paths ? process.env.paths.split(',') : ['/', '/funding', '/funding/outcomes', '/funding/check-what-we-fund', '/funding/national-lottery-grant-heritage/3-10k', '/funding/national-lottery-grant-heritage/10k-100k', '/funding/national-lottery-grant-heritage/100k-250k', '/funding/heritage-horizon-awards', '/funding/run-your-project', '/funding/promote-your-project']
 
 const vcap = process.env.VCAP_SERVICES
 let bucketName
@@ -24,7 +24,7 @@ if (process.env.S3) {
 
 const buildFilePath = (path) => {
     const isoDate = new Date().toISOString().split('T')[0]
-    return `${isoDate}/${!path ? 'homepage' : path.replace('/','-slash-')}`
+    return `${isoDate}/${path.replace(/\//g,'-slash-')}`
 }
 
 const getScreenshotBody = async function (url, width) {
@@ -76,10 +76,9 @@ async function makeScreenshots() {
     for (const path of paths) {
         const filePath = buildFilePath(path)
         if (!process.env.S3) {
-            createLocalFolders(path)
+            createLocalFolders(filePath)
         }
         for (const width of widths) {
-            console.log(`width is ${width}`);
             (async () => {
                 if (process.env.S3) {
                     throttle(() => {
