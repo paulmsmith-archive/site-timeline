@@ -9,13 +9,16 @@ _Takes screenshots to create a timeline of site changes._
 To change the paths to be screenshoted. Edit `paths` in `manifest.yml`
 
 ## Running locally
+
+### Installing
+`yarn install`
+
 Made up of 2 apps:
 
 ### screenshot-maker
 Takes screenshots using Puppeteer. Runs on a schedule to generate them daily.
 
 - `cd screenshot-maker`
-- `yarn install`
 - `node run.js`
 
 
@@ -26,7 +29,6 @@ Frontend to browse screenshots available in S3
 
 - [Get AWS credentials](#getting-aws-credentials)
 - `cd frontend`
-- `yarn install`
 - `node bin/www`
 
 #### Getting AWS Credentials
